@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+	<!--<![endif]-->
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title></title>
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<style>
+			.demo {
+				width: 100px;
+				height: 100px;
+				background-color: gray;
+				display: inline-block;
+				margin: 10px;
+			}
+			.red {
+				background-color: red;
+			}
+			.green {
+				background-color: green;
+			}
+			.blue {
+				background-color: blue;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--[if lt IE 7]>
+			<p class="browsehappy">
+				You are using an
+				<strong>outdated</strong>
+				browser. Please
+				<a href="#">upgrade your browser</a>
+				to improve your experience.
+			</p>
+		<![endif]-->
+
+		<div id="app1">
+			<h1>Component 1</h1>
+			<input type="text" v-on:input="changeTitle" />
+			<!-- v-on:eventtype is used to execute methods on event -->
+			<p v-once>
+				<!-- v-once makes sure that the first value is final -->
+				{{title}}
+			</p>
+			<p>
+				{{title}}
+			</p>
+			<a v-bind:href="link">This is a link</a>
+			<!-- Cannot use string interpolation here. Must bind to data element using v-bind -->
+			<p v-html="finishedLink">
+				<!--   v-htmml is basically dangerouslySetInnerHTML() -->
+			</p>
+		</div>
+
+		<hr />
+
+		<div id="app2">
+			<h1>Component 2</h1>
+			<button v-on:click="increase(2, $event)">Increase v1</button>
+			<button v-on:click="counter++">Increase v2</button>
+			<p>{{counter}}</p>
+			<p>{{counter > 10 ? 'Counter > 10' : 'Counter < 10'}}</p>
+			<p v-on:mousemove="updateCoordinates">
+				Coordinates: {{x}} / {{y}} -
+				<span v-on:mousemove="dummy">DEAD SPOT</span>
+				<!-- Stop the mousemove behavior using dummy() -->
+				<span v-on:mousemove.stop>DEAD SPOT</span>
+				<!-- Alternative method to stop propagation -->
+				<!-- .stop is an event modifier -->
+				<!-- .default is another event modifier which prevents default -->
+			</p>
+			<input type="text" v-on:keyup.enter.space="alertMe" />
+			<!-- Executes ONLY upon enter and space key keyup -->
+		</div>
+
+		<hr />
+
+		<div id="app3">
+			<h1>Component 3</h1>
+			<input type="text" v-model="name" />
+			<!-- ez pz two-way data binding with v-model -->
+			<p>{{name}}</p>
+		</div>
+
+		<hr />
+
+		<div id="app4">
+			<h1>Component 4</h1>
+			<button v-on:click="counter++">Increase</button>
+			<button v-on:click="counter--">Decrease</button>
+			<p>Counter: {{counter}}</p>
+			<p>Result: {{result()}} | {{output}}</p>
+			<!-- result() reexecutes on every dom update. -->
+			<!-- output is re computed only when actually necessary 
+                since the computeed property methods in Vue use 
+                cached data to prevent unncecessary element rebuilds. -->
+		</div>
+
+		<hr />
+
+		<div id="app5">
+			<h1>Component 5</h1>
+			<button @click="changeLink">Click to Change Link</button>
+			<!-- Shorthand for v-on:click="changeLink" -->
+			<a :href="link">Link</a>
+			<!-- Shorthand for v-bind:href="link" -->
+		</div>
+
+		<hr />
+
+		<div id="app6">
+			<h1>Component 6</h1>
+			<!-- Dynamically changing CSS classes -->
+			<div
+				class="demo"
+				@click="attachRed = !attachRed"
+				:class="divClasses"
+			></div>
+			<div class="demo" :class="[color, {red: attachRed}]"></div>
+			<!-- Apply the array of classes to the object -->
+			<div class="demo"></div>
+			<input type="text" v-model="color" />
+		</div>
+
+		<hr />
+
+		<div id="app7">
+			<h1>Component 7</h1>
+			<!-- Styling without CSS classes -->
+			<div class="demo" :style="{'background-color': color}"></div>
+			<div class="demo" :style="myStyle"></div>
+			<div class="demo" :style="[myStyle, {height: width + 'px'}]"></div>
+			<input type="text" v-model="color" />
+			<input type="number" v-model="width" />
+		</div>
+
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script src="main.js" async defer></script>
+	</body>
+</html>
