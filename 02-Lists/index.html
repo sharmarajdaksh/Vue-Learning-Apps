@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lists</title>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+
+            <li v-for="ingredient in ingredients">
+                <!-- Loop through the persons data attribute -->
+                {{ingredient}}
+            </li>
+        </ul>
+        <br>
+        <hr>
+        <br>
+        <template v-for="(person, i) in persons" :key="person">
+            <!-- Extracting the index also -->
+            <!-- Here also, templates are usable -->
+            <!-- Key specification isn't necessary, 
+                but sometimes it's better to specify a key value just to be safe. 
+            See note in the end for explanations.-->
+            {{i + 1}}. {{person.name}} is {{person.age}} years old and loves the
+            color {{person.color}}
+            <br>
+        </template>
+        <br>
+        <hr>
+        <br>
+        <template v-for="attribute in persons[0]">
+            <!-- You can even loop through object properties -->
+            {{attribute}}
+        </template>
+        <br>
+        <hr>
+        <br>
+        <template v-for="(value, key) in persons[1]">
+            <!-- Extracting keys and values from object properties -->
+            {{key}} : {{value}} <br>
+        </template>
+        <br>
+        <hr>
+        <br>
+        <template v-for="(value, key, index) in persons[1]">
+            <!-- Even here you can get the index of the attribute extracted -->
+            {{index + 1}}. {{key}} : {{value}} <br>
+        </template>
+        <br>
+        <hr>
+        <br>
+        <template v-for="n in 10">
+            <!-- This here is some Vue magic to traverse the range [1, 10] -->
+            {{n}} <br>
+        </template>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
+
+<!-- 
+    BACKGROUND KNOWLEDGE THAT MIGHT SOMETIMES BE USEFUL:
+    In general, when an item in an array that you loop through changes, 
+    Vue only rerenders that particular element. The default behavior is that 
+    Vue only patches the new value at the position that it recognizes, rather
+    than actually changing the value for a specific object. It does not keep 
+    track of the element it is modifying.
+    To keep track, specifying a key is necessary so that owing to an association
+    between the object and it's key, Vue actually recognizees the element.
+ -->

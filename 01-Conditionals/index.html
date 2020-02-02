@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Conditionals and Lists</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div id="app">
+            <p v-if="show">You can see me!</p>
+            <!-- Conditional render -->
+            <p v-else>Do you also see me?</p>
+            <!-- v-else automatically attaches itself to most recent v-if -->
+            <button @click="show = !show">Switch</button>
+            <template v-if="show">
+                <!-- Why use templates? You can nest multiple elements inside -->
+                <h1>Template</h1>
+                <p>This is inside a template</p>
+            </template>        
+            <p v-show="show">I am invisible</p>
+            <!-- As ooposed to v-if, which takes the element out of the DOM completely, v-show only changes the element's css to have display:none  -->
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="main.js"></script>
+    </body>
+</html>
